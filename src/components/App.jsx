@@ -1,26 +1,40 @@
 import VideoData from '../../src/data/exampleVideoData.js';
 import VideoList from './VideoList.js';
+import VideoPlayer from './VideoPlayer.js';
+import searchYoutube from '../lib/searchYouTube.js';
+import Search from './Search.js';
 
-class App extends React.Component{
+class App extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      loadedVideo: VideoData[0],
+      videoData: VideoData,
+    };
 
-    console.log(VideoData);
+    searchYoutube({}, (data) => {
+      console.log('Got data: ', data);
+    });
   }
+
+  handleVideoClick(video) {
+    this.setState( {loadedVideo:video} ); 
+  }
+
   render() {
     return (
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <div><h5><em>search</em> view goes here</h5></div>
+            <div><Search /></div>
           </div>
         </nav>
         <div className="row">
           <div className="col-md-7">
-            <div><h5><em>videoPlayer</em> view goes here</h5></div>
+            <VideoPlayer video={this.state.loadedVideo}/>
           </div>
           <div className="col-md-5">
-            <div><VideoList videos={VideoData} /></div>
+            <div><VideoList videos={this.state.videoData} cb={this.handleVideoClick.bind(this)}/></div>
           </div>
         </div>
       </div>
