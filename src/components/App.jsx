@@ -10,15 +10,28 @@ class App extends React.Component {
     this.state = {
       loadedVideo: VideoData[0],
       videoData: VideoData,
+      searchBarValue = ''
     };
 
-    searchYoutube({}, (data) => {
-      console.log('Got data: ', data);
-    });
+    // searchYoutube({}, (data) => {
+    //   console.log('Got data: ', data);
+    // });
   }
 
+  //Change loaded video in player on click
   handleVideoClick(video) {
-    this.setState( {loadedVideo:video} ); 
+    this.setState( {loadedVideo: video} ); 
+  }
+
+  //Get the value of the search bar
+  handleSearch(event) {
+    this.setState( {searchBarValue: event.target.value} );
+  }
+
+  handleSubmit(event) {
+    console.log(event);
+    event.preventDefault();
+    this.setState( {searchBarValue: ''});
   }
 
   render() {
@@ -26,7 +39,7 @@ class App extends React.Component {
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <div><Search /></div>
+            <div><Search stateValue={this.state.searchBarValue} rainbows={this.handleSearch.bind(this)}  /></div>
           </div>
         </nav>
         <div className="row">
