@@ -9,14 +9,16 @@ var searchYouTube = (options, callback, errorCB) => {
     maxResults: options.max || 5,
     key: YOUTUBE_API_KEY,
     type: 'video',
-    videoEmbeddable: true,
+    videoEmbeddable: true
   };
 
   $.ajax({
     url: url,
     type: 'GET',
     data: data,
-    success: callback,
+    success: function (data) {
+      callback(data.items);
+    },
     error: errorCB || function(error) {
       console.error('ERRORROROROR!', error);
     }

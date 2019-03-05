@@ -1,7 +1,6 @@
 import VideoData from '../../src/data/exampleVideoData.js';
 import VideoList from './VideoList.js';
 import VideoPlayer from './VideoPlayer.js';
-import searchYoutube from '../lib/searchYouTube.js';
 import Search from './Search.js';
 
 class App extends React.Component {
@@ -10,12 +9,20 @@ class App extends React.Component {
     this.state = {
       loadedVideo: VideoData[0],
       videoData: VideoData,
-      searchBarValue = ''
+      searchBarValue: 'React JS Tutorial for Beginners'
     };
 
-    // searchYoutube({}, (data) => {
-    //   console.log('Got data: ', data);
-    // });
+  }
+
+  // searchYouTube(query, ) {
+
+  // }
+  
+  componentDidMount() {
+    this.props.searchYouTube( { query: this.state.searchBarValue, max: 10 }, (data) => {
+      this.setState( {videoData: data, loadedVideo: data[0]} );
+    });
+    this.setState({searchBarValue: ''});
   }
 
   //Change loaded video in player on click
@@ -29,8 +36,10 @@ class App extends React.Component {
   }
 
   handleSubmit(event) {
-    console.log(event);
     event.preventDefault();
+    this.props.searchYouTube({query: this.state.searchBarValue, max: 10}, (data) => {
+      this.setState({videoData: data.items}).bind(this);
+    });
     this.setState( {searchBarValue: ''});
   }
 
@@ -39,7 +48,7 @@ class App extends React.Component {
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <div><Search stateValue={this.state.searchBarValue} rainbows={this.handleSearch.bind(this)}  /></div>
+            <div><Search stateValue={this.state.searchBarValue} cb={this.handleSearch.bind(this)} cbSubmit={this.handleSubmit.bind(this)}/></div>
           </div>
         </nav>
         <div className="row">
