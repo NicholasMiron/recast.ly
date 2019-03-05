@@ -103,3 +103,18 @@ h5 {
     margin-right: 20px;
   }
 }
+
+.autoplay {
+  width:8%;
+  left:60%;
+  position: relative;
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.inauto {
+  display: flex;
+
+}

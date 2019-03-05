@@ -11,13 +11,18 @@ class App extends React.Component {
       videoData: VideoData,
       searchBarValue: 'Austin Texas Food',
       canSearch: true,
+      autoplay: true
     };
 
   }
+
+
   
   componentDidMount() {
     this.props.searchYouTube( { query: this.state.searchBarValue, max: 10 }, (data) => {
       this.setState( {videoData: data, loadedVideo: data[0]} );
+    }, (err) => {
+      console.error('ANGRY ßABOONS', this.state.videoData);
     });
     this.setState({searchBarValue: ''});
   }
@@ -47,6 +52,11 @@ class App extends React.Component {
     this.setState( {searchBarValue: ''});
   }
 
+  handleAutoplay(event) {
+    //event.preventDefault();
+    this.setState({autoplay: !this.state.autoplay});
+  }
+
   render() {
     return (
       <div>
@@ -55,9 +65,13 @@ class App extends React.Component {
             <div><Search stateValue={this.state.searchBarValue} cb={this.handleSearch.bind(this)} cbSubmit={this.handleSubmit.bind(this)}/></div>
           </div>
         </nav>
+        <div className="autoplay">
+          <div className='inauto'>KINDA AUTOPLAY:</div>
+          <input className='inauto' type='checkbox' checked={this.state.autoplay} onChange={(event) =>(this.handleAutoplay(event))}></input>
+        </div>
         <div className="row">
           <div className="col-md-7">
-            <VideoPlayer video={this.state.loadedVideo}/>
+            <VideoPlayer video={this.state.loadedVideo} autoplay={this.state.autoplay}/>
           </div>
           <div className="col-md-5">
             <div><VideoList videos={this.state.videoData} cb={this.handleVideoClick.bind(this)}/></div>

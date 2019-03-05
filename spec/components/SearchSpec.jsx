@@ -40,7 +40,7 @@ describe ('Search', function() {
       
       var newVideoEntryTitleElements = scryRenderedDOMComponentsWithClass(app, 'video-list-entry-title');
       newVideoEntryTitleElements.forEach((videoEntryTitle, i) => {
-        console.log("Howdy!", videoEntryTitle.innerHTML, moreFakeVideoData[i].snippet.title, videoEntryTitle.innerHTML === moreFakeVideoData[i].snippet.title);
+        //  console.log("Howdy!", videoEntryTitle.innerHTML, moreFakeVideoData[i].snippet.title, videoEntryTitle.innerHTML === moreFakeVideoData[i].snippet.title);
         expect(videoEntryTitle.innerHTML).to.equal(moreFakeVideoData[i].snippet.title);
       });
     });
