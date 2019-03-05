@@ -9,15 +9,11 @@ class App extends React.Component {
     this.state = {
       loadedVideo: VideoData[0],
       videoData: VideoData,
-      searchBarValue: 'React JS Tutorial for Beginners',
+      searchBarValue: 'Austin Texas Food',
       canSearch: true,
     };
 
   }
-
-  // searchYouTube(query, ) {
-
-  // }
   
   componentDidMount() {
     this.props.searchYouTube( { query: this.state.searchBarValue, max: 10 }, (data) => {
@@ -34,10 +30,10 @@ class App extends React.Component {
   //Get the value of the search bar
   handleSearch(event) {
     this.setState( {searchBarValue: event.target.value} );
-    if(this.state.canSearch === true){
+    if (this.state.canSearch === true) {
       this.props.searchYouTube( { query: this.state.searchBarValue, max: 10 }, (data) => {
         this.setState( {videoData: data, canSearch: false}, () => {
-          setTimeout( () => { this.setState({canSearch: true})}, 500);
+          setTimeout( () => { this.setState({canSearch: true}); }, 500);
         });
       });
     }
@@ -46,7 +42,6 @@ class App extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     this.props.searchYouTube({query: this.state.searchBarValue, max: 10}, (data) => {
-      console.log("Videos: ", data)
       this.setState({videoData: data});
     });
     this.setState( {searchBarValue: ''});

@@ -2,7 +2,6 @@ import VideoListEntry from './VideoListEntry.js';
 
 var VideoList = (props) => {
   const renderList = function(videos) {
-    // console.log(videos, 'hererere')
     return videos.map( (video) => {
       return <VideoListEntry key={video.id.videoId} video={video} cb={props.cb}/>;
     });

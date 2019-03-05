@@ -71,6 +71,10 @@ body {
   cursor: pointer;
 }
 
+.media-object:hover {
+  cursor: pointer;
+}
+
 .video-list-entry-detail {
   font-size: 12px;
   color: #999;

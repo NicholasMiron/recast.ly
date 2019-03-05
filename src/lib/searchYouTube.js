@@ -1,7 +1,6 @@
 import YOUTUBE_API_KEY from '../config/youtube.js';
 
 var searchYouTube = (options, callback, errorCB) => {
-  // TODO
   const url = 'https://www.googleapis.com/youtube/v3/search';
   const data = {
     q: options.query || 'french bulldog puppies',
